@@ -29,8 +29,13 @@ message Attachment {
 
     oneof content {
         string text = 3;
+        bytes file = 4;
+        string url = 7;
         // TODO: Добавить другие типы контента
     }
+
+    string file_name = 5;
+    string mime_type = 6;
 }
 
 // TODO: Пока не используется
@@ -58,7 +63,8 @@ message Ack {
     string message_id = 1;
     string chat_id = 2;
     bool success = 3;
-  }
+    string error = 4;
+}
 
 // TODO: define presence, clientToServer, serverToClient, sendMessage
 

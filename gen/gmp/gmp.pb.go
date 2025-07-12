@@ -161,7 +161,11 @@ type Attachment struct {
 	// Types that are valid to be assigned to Content:
 	//
 	//	*Attachment_Text
+	//	*Attachment_File
+	//	*Attachment_Url
 	Content       isAttachment_Content `protobuf_oneof:"content"`
+	FileName      string               `protobuf:"bytes,5,opt,name=file_name,json=fileName,proto3" json:"file_name,omitempty"`
+	MimeType      string               `protobuf:"bytes,6,opt,name=mime_type,json=mimeType,proto3" json:"mime_type,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -226,15 +230,59 @@ func (x *Attachment) GetText() string {
 	return ""
 }
 
+func (x *Attachment) GetFile() []byte {
+	if x != nil {
+		if x, ok := x.Content.(*Attachment_File); ok {
+			return x.File
+		}
+	}
+	return nil
+}
+
+func (x *Attachment) GetUrl() string {
+	if x != nil {
+		if x, ok := x.Content.(*Attachment_Url); ok {
+			return x.Url
+		}
+	}
+	return ""
+}
+
+func (x *Attachment) GetFileName() string {
+	if x != nil {
+		return x.FileName
+	}
+	return ""
+}
+
+func (x *Attachment) GetMimeType() string {
+	if x != nil {
+		return x.MimeType
+	}
+	return ""
+}
+
 type isAttachment_Content interface {
 	isAttachment_Content()
 }
 
 type Attachment_Text struct {
-	Text string `protobuf:"bytes,3,opt,name=text,proto3,oneof"` // TODO: Добавить другие типы контента
+	Text string `protobuf:"bytes,3,opt,name=text,proto3,oneof"`
+}
+
+type Attachment_File struct {
+	File []byte `protobuf:"bytes,4,opt,name=file,proto3,oneof"`
+}
+
+type Attachment_Url struct {
+	Url string `protobuf:"bytes,7,opt,name=url,proto3,oneof"` // TODO: Добавить другие типы контента
 }
 
 func (*Attachment_Text) isAttachment_Content() {}
+
+func (*Attachment_File) isAttachment_Content() {}
+
+func (*Attachment_Url) isAttachment_Content() {}
 
 type Message struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
@@ -317,6 +365,7 @@ type Ack struct {
 	MessageId     string                 `protobuf:"bytes,1,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
 	ChatId        string                 `protobuf:"bytes,2,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
 	Success       bool                   `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
+	Error         string                 `protobuf:"bytes,4,opt,name=error,proto3" json:"error,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -370,6 +419,13 @@ func (x *Ack) GetSuccess() bool {
 		return x.Success
 	}
 	return false
+}
+
+func (x *Ack) GetError() string {
+	if x != nil {
+		return x.Error
+	}
+	return ""
 }
 
 type ClientToServer struct {
@@ -524,24 +580,29 @@ var File_gmp_proto protoreflect.FileDescriptor
 
 const file_gmp_proto_rawDesc = "" +
 	"\n" +
-	"\tgmp.proto\x12\x03gmp\x1a\x1fgoogle/protobuf/timestamp.proto\"f\n" +
+	"\tgmp.proto\x12\x03gmp\x1a\x1fgoogle/protobuf/timestamp.proto\"\xca\x01\n" +
 	"\n" +
 	"Attachment\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12'\n" +
 	"\x04type\x18\x02 \x01(\x0e2\x13.gmp.AttachmentTypeR\x04type\x12\x14\n" +
-	"\x04text\x18\x03 \x01(\tH\x00R\x04textB\t\n" +
+	"\x04text\x18\x03 \x01(\tH\x00R\x04text\x12\x14\n" +
+	"\x04file\x18\x04 \x01(\fH\x00R\x04file\x12\x12\n" +
+	"\x03url\x18\a \x01(\tH\x00R\x03url\x12\x1b\n" +
+	"\tfile_name\x18\x05 \x01(\tR\bfileName\x12\x1b\n" +
+	"\tmime_type\x18\x06 \x01(\tR\bmimeTypeB\t\n" +
 	"\acontent\"\xb8\x01\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x17\n" +
 	"\achat_id\x18\x03 \x01(\tR\x06chatId\x128\n" +
 	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x121\n" +
-	"\vattachments\x18\x05 \x03(\v2\x0f.gmp.AttachmentR\vattachments\"W\n" +
+	"\vattachments\x18\x05 \x03(\v2\x0f.gmp.AttachmentR\vattachments\"m\n" +
 	"\x03Ack\x12\x1d\n" +
 	"\n" +
 	"message_id\x18\x01 \x01(\tR\tmessageId\x12\x17\n" +
 	"\achat_id\x18\x02 \x01(\tR\x06chatId\x12\x18\n" +
-	"\asuccess\x18\x03 \x01(\bR\asuccess\"C\n" +
+	"\asuccess\x18\x03 \x01(\bR\asuccess\x12\x14\n" +
+	"\x05error\x18\x04 \x01(\tR\x05error\"C\n" +
 	"\x0eClientToServer\x12(\n" +
 	"\amessage\x18\x01 \x01(\v2\f.gmp.MessageH\x00R\amessageB\a\n" +
 	"\x05event\"a\n" +
@@ -623,6 +684,8 @@ func file_gmp_proto_init() {
 	}
 	file_gmp_proto_msgTypes[0].OneofWrappers = []any{
 		(*Attachment_Text)(nil),
+		(*Attachment_File)(nil),
+		(*Attachment_Url)(nil),
 	}
 	file_gmp_proto_msgTypes[3].OneofWrappers = []any{
 		(*ClientToServer_Message)(nil),

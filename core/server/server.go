@@ -20,6 +20,16 @@ func (s *Server) MessageStream(stream pb.MessengerService_MessageStreamServer) e
 		}
 
 		log.Info().Msgf("Received message: %v", in)
+
+		stream.Send(
+			&pb.ServerToClient{
+				Event: &pb.ServerToClient_Ack{
+					Ack: &pb.Ack{
+						Success: true,
+					},
+				},
+			},
+		)
 	}
 }
 

@@ -77,7 +77,9 @@ func (c *Client) SendMessage(chatID string, text string) error {
 				Attachments: []*pb.Attachment{
 					{
 						Type: pb.AttachmentType_TEXT,
-						Id:   text,
+						Content: &pb.Attachment_Text{
+							Text: text,
+						},
 					},
 				},
 			},

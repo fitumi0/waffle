@@ -1,5 +1,5 @@
 PROTO_DIR=.\proto
-GO_OUT=.\pkg\proto
+GO_OUT=.\gen
 
 .PHONY: proto
 proto:
@@ -8,4 +8,4 @@ proto:
 
 .PHONY: tidy
 tidy:
-	go mod tidy 
+	go mod tidy
