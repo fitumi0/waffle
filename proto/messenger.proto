@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package messenger;
+
+option go_package = "/messenger";
+
+import "google/protobuf/timestamp.proto";
+
+enum AttachmentType {
+    ATTACHMENT_TYPE_UNSPECIFIED     = 0;
+
+    TEXT                            = 1;
+    PHOTO                           = 2;
+    VOICE                           = 3;
+    VIDEO                           = 4;
+    ROUND_VIDEO                     = 5;
+    GEO                             = 6;
+    GIF                             = 7;
+    FILE                            = 8;
+    STICKER                         = 9;
+    ANIMATED_STICKER                = 10;
+    MUSIC                           = 11;
+    POLL                            = 12;
+}
+
+message Attachment {
+    string id = 1;
+    AttachmentType type = 2;
+
+    oneof content {
+        string text = 3;
+        // TODO: Добавить другие типы контента
+    }
+}
+
+// TODO: Пока не используется
+enum MessageType {
+    SYSTEM  = 0;
+    USER    = 1;
+    BOT     = 2;
+    CHANNEL = 3;
+}
+
+// enum MessageStatus {
+    // TODO: Нужно ли?
+// }
+
+message Message {
+    string id = 1;
+    string user_id = 2;
+    string chat_id = 3;
+    google.protobuf.Timestamp timestamp = 4;
+
+    repeated Attachment attachments = 5;
+}
+
+message Ack {
+    string message_id = 1;
+    string chat_id = 2;
+    bool success = 3;
+  }
+
+// TODO: define presence, clientToServer, serverToClient, sendMessage
+
+message ClientToServer {
+    oneof event {
+        Message message = 1;
+        // TODO: Добавить другие типы событий
+    }
+}
+
+message ServerToClient {
+    oneof event {
+        Ack ack = 1;
+        Message message = 2;
+        // TypingEvent typing = 2;
+        // presence = 3;
+
+        // TODO: Добавить другие типы событий
+    }
+}
+
+service MessengerService {
+    rpc MessageStream(stream ClientToServer) returns (stream ServerToClient);
+    rpc SendMessage(Message) returns (Ack);
+    // rpc SetPresence(SetPresence) returns (Ack);
+    // rpc SubscribeChats(SubscriptionRequest) returns (Ack);
+  }
