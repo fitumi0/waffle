@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.28.1
-// source: messenger.proto
+// source: gmp.proto
 
-package messenger
+package gmp
 
 import (
 	context "context"
@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	MessengerService_MessageStream_FullMethodName = "/messenger.MessengerService/MessageStream"
-	MessengerService_SendMessage_FullMethodName   = "/messenger.MessengerService/SendMessage"
+	MessengerService_MessageStream_FullMethodName = "/gmp.MessengerService/MessageStream"
+	MessengerService_SendMessage_FullMethodName   = "/gmp.MessengerService/SendMessage"
 )
 
 // MessengerServiceClient is the client API for MessengerService service.
@@ -134,7 +134,7 @@ func _MessengerService_SendMessage_Handler(srv interface{}, ctx context.Context,
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MessengerService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "messenger.MessengerService",
+	ServiceName: "gmp.MessengerService",
 	HandlerType: (*MessengerServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -150,5 +150,5 @@ var MessengerService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "messenger.proto",
+	Metadata: "gmp.proto",
 }

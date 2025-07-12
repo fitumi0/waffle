@@ -3,7 +3,7 @@ package server
 import (
 	"net"
 
-	pb "github.com/fitumi0/waffle/gen/messenger"
+	pb "github.com/fitumi0/waffle/gen/gmp"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
 )

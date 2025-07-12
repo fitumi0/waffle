@@ -2,9 +2,9 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.28.1
-// source: messenger.proto
+// source: gmp.proto
 
-package messenger
+package gmp
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -85,11 +85,11 @@ func (x AttachmentType) String() string {
 }
 
 func (AttachmentType) Descriptor() protoreflect.EnumDescriptor {
-	return file_messenger_proto_enumTypes[0].Descriptor()
+	return file_gmp_proto_enumTypes[0].Descriptor()
 }
 
 func (AttachmentType) Type() protoreflect.EnumType {
-	return &file_messenger_proto_enumTypes[0]
+	return &file_gmp_proto_enumTypes[0]
 }
 
 func (x AttachmentType) Number() protoreflect.EnumNumber {
@@ -98,7 +98,7 @@ func (x AttachmentType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use AttachmentType.Descriptor instead.
 func (AttachmentType) EnumDescriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{0}
+	return file_gmp_proto_rawDescGZIP(), []int{0}
 }
 
 // TODO: Пока не используется
@@ -138,11 +138,11 @@ func (x MessageType) String() string {
 }
 
 func (MessageType) Descriptor() protoreflect.EnumDescriptor {
-	return file_messenger_proto_enumTypes[1].Descriptor()
+	return file_gmp_proto_enumTypes[1].Descriptor()
 }
 
 func (MessageType) Type() protoreflect.EnumType {
-	return &file_messenger_proto_enumTypes[1]
+	return &file_gmp_proto_enumTypes[1]
 }
 
 func (x MessageType) Number() protoreflect.EnumNumber {
@@ -151,13 +151,13 @@ func (x MessageType) Number() protoreflect.EnumNumber {
 
 // Deprecated: Use MessageType.Descriptor instead.
 func (MessageType) EnumDescriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{1}
+	return file_gmp_proto_rawDescGZIP(), []int{1}
 }
 
 type Attachment struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
-	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"` // Уникальный ID вложения (если нужно)
-	Type  AttachmentType         `protobuf:"varint,2,opt,name=type,proto3,enum=messenger.AttachmentType" json:"type,omitempty"`
+	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Type  AttachmentType         `protobuf:"varint,2,opt,name=type,proto3,enum=gmp.AttachmentType" json:"type,omitempty"`
 	// Types that are valid to be assigned to Content:
 	//
 	//	*Attachment_Text
@@ -168,7 +168,7 @@ type Attachment struct {
 
 func (x *Attachment) Reset() {
 	*x = Attachment{}
-	mi := &file_messenger_proto_msgTypes[0]
+	mi := &file_gmp_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -180,7 +180,7 @@ func (x *Attachment) String() string {
 func (*Attachment) ProtoMessage() {}
 
 func (x *Attachment) ProtoReflect() protoreflect.Message {
-	mi := &file_messenger_proto_msgTypes[0]
+	mi := &file_gmp_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -193,7 +193,7 @@ func (x *Attachment) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Attachment.ProtoReflect.Descriptor instead.
 func (*Attachment) Descriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{0}
+	return file_gmp_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Attachment) GetId() string {
@@ -249,7 +249,7 @@ type Message struct {
 
 func (x *Message) Reset() {
 	*x = Message{}
-	mi := &file_messenger_proto_msgTypes[1]
+	mi := &file_gmp_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -261,7 +261,7 @@ func (x *Message) String() string {
 func (*Message) ProtoMessage() {}
 
 func (x *Message) ProtoReflect() protoreflect.Message {
-	mi := &file_messenger_proto_msgTypes[1]
+	mi := &file_gmp_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -274,7 +274,7 @@ func (x *Message) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Message.ProtoReflect.Descriptor instead.
 func (*Message) Descriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{1}
+	return file_gmp_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *Message) GetId() string {
@@ -323,7 +323,7 @@ type Ack struct {
 
 func (x *Ack) Reset() {
 	*x = Ack{}
-	mi := &file_messenger_proto_msgTypes[2]
+	mi := &file_gmp_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -335,7 +335,7 @@ func (x *Ack) String() string {
 func (*Ack) ProtoMessage() {}
 
 func (x *Ack) ProtoReflect() protoreflect.Message {
-	mi := &file_messenger_proto_msgTypes[2]
+	mi := &file_gmp_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -348,7 +348,7 @@ func (x *Ack) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Ack.ProtoReflect.Descriptor instead.
 func (*Ack) Descriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{2}
+	return file_gmp_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Ack) GetMessageId() string {
@@ -384,7 +384,7 @@ type ClientToServer struct {
 
 func (x *ClientToServer) Reset() {
 	*x = ClientToServer{}
-	mi := &file_messenger_proto_msgTypes[3]
+	mi := &file_gmp_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -396,7 +396,7 @@ func (x *ClientToServer) String() string {
 func (*ClientToServer) ProtoMessage() {}
 
 func (x *ClientToServer) ProtoReflect() protoreflect.Message {
-	mi := &file_messenger_proto_msgTypes[3]
+	mi := &file_gmp_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -409,7 +409,7 @@ func (x *ClientToServer) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ClientToServer.ProtoReflect.Descriptor instead.
 func (*ClientToServer) Descriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{3}
+	return file_gmp_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ClientToServer) GetEvent() isClientToServer_Event {
@@ -451,7 +451,7 @@ type ServerToClient struct {
 
 func (x *ServerToClient) Reset() {
 	*x = ServerToClient{}
-	mi := &file_messenger_proto_msgTypes[4]
+	mi := &file_gmp_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -463,7 +463,7 @@ func (x *ServerToClient) String() string {
 func (*ServerToClient) ProtoMessage() {}
 
 func (x *ServerToClient) ProtoReflect() protoreflect.Message {
-	mi := &file_messenger_proto_msgTypes[4]
+	mi := &file_gmp_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -476,7 +476,7 @@ func (x *ServerToClient) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServerToClient.ProtoReflect.Descriptor instead.
 func (*ServerToClient) Descriptor() ([]byte, []int) {
-	return file_messenger_proto_rawDescGZIP(), []int{4}
+	return file_gmp_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ServerToClient) GetEvent() isServerToClient_Event {
@@ -520,34 +520,34 @@ func (*ServerToClient_Ack) isServerToClient_Event() {}
 
 func (*ServerToClient_Message) isServerToClient_Event() {}
 
-var File_messenger_proto protoreflect.FileDescriptor
+var File_gmp_proto protoreflect.FileDescriptor
 
-const file_messenger_proto_rawDesc = "" +
+const file_gmp_proto_rawDesc = "" +
 	"\n" +
-	"\x0fmessenger.proto\x12\tmessenger\x1a\x1fgoogle/protobuf/timestamp.proto\"l\n" +
+	"\tgmp.proto\x12\x03gmp\x1a\x1fgoogle/protobuf/timestamp.proto\"f\n" +
 	"\n" +
 	"Attachment\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\x12-\n" +
-	"\x04type\x18\x02 \x01(\x0e2\x19.messenger.AttachmentTypeR\x04type\x12\x14\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12'\n" +
+	"\x04type\x18\x02 \x01(\x0e2\x13.gmp.AttachmentTypeR\x04type\x12\x14\n" +
 	"\x04text\x18\x03 \x01(\tH\x00R\x04textB\t\n" +
-	"\acontent\"\xbe\x01\n" +
+	"\acontent\"\xb8\x01\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x17\n" +
 	"\achat_id\x18\x03 \x01(\tR\x06chatId\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x127\n" +
-	"\vattachments\x18\x05 \x03(\v2\x15.messenger.AttachmentR\vattachments\"W\n" +
+	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x121\n" +
+	"\vattachments\x18\x05 \x03(\v2\x0f.gmp.AttachmentR\vattachments\"W\n" +
 	"\x03Ack\x12\x1d\n" +
 	"\n" +
 	"message_id\x18\x01 \x01(\tR\tmessageId\x12\x17\n" +
 	"\achat_id\x18\x02 \x01(\tR\x06chatId\x12\x18\n" +
-	"\asuccess\x18\x03 \x01(\bR\asuccess\"I\n" +
-	"\x0eClientToServer\x12.\n" +
-	"\amessage\x18\x01 \x01(\v2\x12.messenger.MessageH\x00R\amessageB\a\n" +
-	"\x05event\"m\n" +
-	"\x0eServerToClient\x12\"\n" +
-	"\x03ack\x18\x01 \x01(\v2\x0e.messenger.AckH\x00R\x03ack\x12.\n" +
-	"\amessage\x18\x02 \x01(\v2\x12.messenger.MessageH\x00R\amessageB\a\n" +
+	"\asuccess\x18\x03 \x01(\bR\asuccess\"C\n" +
+	"\x0eClientToServer\x12(\n" +
+	"\amessage\x18\x01 \x01(\v2\f.gmp.MessageH\x00R\amessageB\a\n" +
+	"\x05event\"a\n" +
+	"\x0eServerToClient\x12\x1c\n" +
+	"\x03ack\x18\x01 \x01(\v2\b.gmp.AckH\x00R\x03ack\x12(\n" +
+	"\amessage\x18\x02 \x01(\v2\f.gmp.MessageH\x00R\amessageB\a\n" +
 	"\x05event*\xc1\x01\n" +
 	"\x0eAttachmentType\x12\x1f\n" +
 	"\x1bATTACHMENT_TYPE_UNSPECIFIED\x10\x00\x12\b\n" +
@@ -569,47 +569,46 @@ const file_messenger_proto_rawDesc = "" +
 	"\x06SYSTEM\x10\x00\x12\b\n" +
 	"\x04USER\x10\x01\x12\a\n" +
 	"\x03BOT\x10\x02\x12\v\n" +
-	"\aCHANNEL\x10\x032\x90\x01\n" +
-	"\x10MessengerService\x12I\n" +
-	"\rMessageStream\x12\x19.messenger.ClientToServer\x1a\x19.messenger.ServerToClient(\x010\x01\x121\n" +
-	"\vSendMessage\x12\x12.messenger.Message\x1a\x0e.messenger.AckB\fZ\n" +
-	"/messengerb\x06proto3"
+	"\aCHANNEL\x10\x032x\n" +
+	"\x10MessengerService\x12=\n" +
+	"\rMessageStream\x12\x13.gmp.ClientToServer\x1a\x13.gmp.ServerToClient(\x010\x01\x12%\n" +
+	"\vSendMessage\x12\f.gmp.Message\x1a\b.gmp.AckB\x06Z\x04/gmpb\x06proto3"
 
 var (
-	file_messenger_proto_rawDescOnce sync.Once
-	file_messenger_proto_rawDescData []byte
+	file_gmp_proto_rawDescOnce sync.Once
+	file_gmp_proto_rawDescData []byte
 )
 
-func file_messenger_proto_rawDescGZIP() []byte {
-	file_messenger_proto_rawDescOnce.Do(func() {
-		file_messenger_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_messenger_proto_rawDesc), len(file_messenger_proto_rawDesc)))
+func file_gmp_proto_rawDescGZIP() []byte {
+	file_gmp_proto_rawDescOnce.Do(func() {
+		file_gmp_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_gmp_proto_rawDesc), len(file_gmp_proto_rawDesc)))
 	})
-	return file_messenger_proto_rawDescData
+	return file_gmp_proto_rawDescData
 }
 
-var file_messenger_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_messenger_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_messenger_proto_goTypes = []any{
-	(AttachmentType)(0),           // 0: messenger.AttachmentType
-	(MessageType)(0),              // 1: messenger.MessageType
-	(*Attachment)(nil),            // 2: messenger.Attachment
-	(*Message)(nil),               // 3: messenger.Message
-	(*Ack)(nil),                   // 4: messenger.Ack
-	(*ClientToServer)(nil),        // 5: messenger.ClientToServer
-	(*ServerToClient)(nil),        // 6: messenger.ServerToClient
+var file_gmp_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_gmp_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_gmp_proto_goTypes = []any{
+	(AttachmentType)(0),           // 0: gmp.AttachmentType
+	(MessageType)(0),              // 1: gmp.MessageType
+	(*Attachment)(nil),            // 2: gmp.Attachment
+	(*Message)(nil),               // 3: gmp.Message
+	(*Ack)(nil),                   // 4: gmp.Ack
+	(*ClientToServer)(nil),        // 5: gmp.ClientToServer
+	(*ServerToClient)(nil),        // 6: gmp.ServerToClient
 	(*timestamppb.Timestamp)(nil), // 7: google.protobuf.Timestamp
 }
-var file_messenger_proto_depIdxs = []int32{
-	0, // 0: messenger.Attachment.type:type_name -> messenger.AttachmentType
-	7, // 1: messenger.Message.timestamp:type_name -> google.protobuf.Timestamp
-	2, // 2: messenger.Message.attachments:type_name -> messenger.Attachment
-	3, // 3: messenger.ClientToServer.message:type_name -> messenger.Message
-	4, // 4: messenger.ServerToClient.ack:type_name -> messenger.Ack
-	3, // 5: messenger.ServerToClient.message:type_name -> messenger.Message
-	5, // 6: messenger.MessengerService.MessageStream:input_type -> messenger.ClientToServer
-	3, // 7: messenger.MessengerService.SendMessage:input_type -> messenger.Message
-	6, // 8: messenger.MessengerService.MessageStream:output_type -> messenger.ServerToClient
-	4, // 9: messenger.MessengerService.SendMessage:output_type -> messenger.Ack
+var file_gmp_proto_depIdxs = []int32{
+	0, // 0: gmp.Attachment.type:type_name -> gmp.AttachmentType
+	7, // 1: gmp.Message.timestamp:type_name -> google.protobuf.Timestamp
+	2, // 2: gmp.Message.attachments:type_name -> gmp.Attachment
+	3, // 3: gmp.ClientToServer.message:type_name -> gmp.Message
+	4, // 4: gmp.ServerToClient.ack:type_name -> gmp.Ack
+	3, // 5: gmp.ServerToClient.message:type_name -> gmp.Message
+	5, // 6: gmp.MessengerService.MessageStream:input_type -> gmp.ClientToServer
+	3, // 7: gmp.MessengerService.SendMessage:input_type -> gmp.Message
+	6, // 8: gmp.MessengerService.MessageStream:output_type -> gmp.ServerToClient
+	4, // 9: gmp.MessengerService.SendMessage:output_type -> gmp.Ack
 	8, // [8:10] is the sub-list for method output_type
 	6, // [6:8] is the sub-list for method input_type
 	6, // [6:6] is the sub-list for extension type_name
@@ -617,18 +616,18 @@ var file_messenger_proto_depIdxs = []int32{
 	0, // [0:6] is the sub-list for field type_name
 }
 
-func init() { file_messenger_proto_init() }
-func file_messenger_proto_init() {
-	if File_messenger_proto != nil {
+func init() { file_gmp_proto_init() }
+func file_gmp_proto_init() {
+	if File_gmp_proto != nil {
 		return
 	}
-	file_messenger_proto_msgTypes[0].OneofWrappers = []any{
+	file_gmp_proto_msgTypes[0].OneofWrappers = []any{
 		(*Attachment_Text)(nil),
 	}
-	file_messenger_proto_msgTypes[3].OneofWrappers = []any{
+	file_gmp_proto_msgTypes[3].OneofWrappers = []any{
 		(*ClientToServer_Message)(nil),
 	}
-	file_messenger_proto_msgTypes[4].OneofWrappers = []any{
+	file_gmp_proto_msgTypes[4].OneofWrappers = []any{
 		(*ServerToClient_Ack)(nil),
 		(*ServerToClient_Message)(nil),
 	}
@@ -636,18 +635,18 @@ func file_messenger_proto_init() {
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_messenger_proto_rawDesc), len(file_messenger_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_gmp_proto_rawDesc), len(file_gmp_proto_rawDesc)),
 			NumEnums:      2,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_messenger_proto_goTypes,
-		DependencyIndexes: file_messenger_proto_depIdxs,
-		EnumInfos:         file_messenger_proto_enumTypes,
-		MessageInfos:      file_messenger_proto_msgTypes,
+		GoTypes:           file_gmp_proto_goTypes,
+		DependencyIndexes: file_gmp_proto_depIdxs,
+		EnumInfos:         file_gmp_proto_enumTypes,
+		MessageInfos:      file_gmp_proto_msgTypes,
 	}.Build()
-	File_messenger_proto = out.File
-	file_messenger_proto_goTypes = nil
-	file_messenger_proto_depIdxs = nil
+	File_gmp_proto = out.File
+	file_gmp_proto_goTypes = nil
+	file_gmp_proto_depIdxs = nil
 }

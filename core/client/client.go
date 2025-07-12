@@ -5,7 +5,7 @@ import (
 
 	"github.com/rs/zerolog/log"
 
-	pb "github.com/fitumi0/waffle/gen/messenger"
+	pb "github.com/fitumi0/waffle/gen/gmp"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
