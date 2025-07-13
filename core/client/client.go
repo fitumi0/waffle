@@ -61,8 +61,15 @@ func (c *Client) listen() {
 
 		switch x := in.Event.(type) {
 		case *pb.ServerToClient_Message:
-			for _, l := range c.listeners {
-				l.OnMessage(x.Message)
+			{
+				fmt.Printf("[Message] Message: %v\n", x.Message)
+				// for _, l := range c.listeners {
+				// 	l.OnMessage(x.Message)
+				// }
+			}
+		case *pb.ServerToClient_Ack:
+			{
+				fmt.Printf("[Ack] Ack: %v\n", x.Ack)
 			}
 		}
 	}
@@ -86,23 +93,6 @@ func (c *Client) SendMessage(chatID string, text string) error {
 			},
 		},
 	}
-
-	go func() {
-		for {
-			in, err := c.stream.Recv()
-			if err != nil {
-				log.Printf("receive error: %v", err)
-				return
-			}
-
-			switch x := in.Event.(type) {
-			case *pb.ServerToClient_Message:
-				fmt.Printf("[MSG from %s]: %s\n", x.Message.SenderId, x.Message.Attachments)
-			case *pb.ServerToClient_Ack:
-				fmt.Printf("[ACK]: Message %s received\n", x.Ack.MessageId)
-			}
-		}
-	}()
 
 	return c.stream.Send(msg)
 }
