@@ -52,18 +52,25 @@ enum MessageType {
 
 message Message {
     string id = 1;
-    string user_id = 2;
-    string chat_id = 3;
-    google.protobuf.Timestamp timestamp = 4;
-
-    repeated Attachment attachments = 5;
+    string chat_id = 2;
+    ChatType chat_type = 3;
+    string sender_id = 4;
+    google.protobuf.Timestamp timestamp = 5;
+    repeated Attachment attachments = 6;
 }
 
 message Ack {
     string message_id = 1;
     string chat_id = 2;
-    bool success = 3;
-    string error = 4;
+    google.protobuf.Timestamp received_at = 3;
+
+    bool success = 4;
+    string error = 5;
+}
+
+enum ChatType {
+    CHAT_TYPE_PRIVATE = 0;
+    CHAT_TYPE_GROUP = 1;
 }
 
 // TODO: define presence, clientToServer, serverToClient, sendMessage

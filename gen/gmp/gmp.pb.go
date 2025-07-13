@@ -154,6 +154,52 @@ func (MessageType) EnumDescriptor() ([]byte, []int) {
 	return file_gmp_proto_rawDescGZIP(), []int{1}
 }
 
+type ChatType int32
+
+const (
+	ChatType_CHAT_TYPE_PRIVATE ChatType = 0
+	ChatType_CHAT_TYPE_GROUP   ChatType = 1
+)
+
+// Enum value maps for ChatType.
+var (
+	ChatType_name = map[int32]string{
+		0: "CHAT_TYPE_PRIVATE",
+		1: "CHAT_TYPE_GROUP",
+	}
+	ChatType_value = map[string]int32{
+		"CHAT_TYPE_PRIVATE": 0,
+		"CHAT_TYPE_GROUP":   1,
+	}
+)
+
+func (x ChatType) Enum() *ChatType {
+	p := new(ChatType)
+	*p = x
+	return p
+}
+
+func (x ChatType) String() string {
+	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
+}
+
+func (ChatType) Descriptor() protoreflect.EnumDescriptor {
+	return file_gmp_proto_enumTypes[2].Descriptor()
+}
+
+func (ChatType) Type() protoreflect.EnumType {
+	return &file_gmp_proto_enumTypes[2]
+}
+
+func (x ChatType) Number() protoreflect.EnumNumber {
+	return protoreflect.EnumNumber(x)
+}
+
+// Deprecated: Use ChatType.Descriptor instead.
+func (ChatType) EnumDescriptor() ([]byte, []int) {
+	return file_gmp_proto_rawDescGZIP(), []int{2}
+}
+
 type Attachment struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	Id    string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -287,10 +333,11 @@ func (*Attachment_Url) isAttachment_Content() {}
 type Message struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId        string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	ChatId        string                 `protobuf:"bytes,3,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
-	Attachments   []*Attachment          `protobuf:"bytes,5,rep,name=attachments,proto3" json:"attachments,omitempty"`
+	ChatId        string                 `protobuf:"bytes,2,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
+	ChatType      ChatType               `protobuf:"varint,3,opt,name=chat_type,json=chatType,proto3,enum=gmp.ChatType" json:"chat_type,omitempty"`
+	SenderId      string                 `protobuf:"bytes,4,opt,name=sender_id,json=senderId,proto3" json:"sender_id,omitempty"`
+	Timestamp     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=timestamp,proto3" json:"timestamp,omitempty"`
+	Attachments   []*Attachment          `protobuf:"bytes,6,rep,name=attachments,proto3" json:"attachments,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -332,16 +379,23 @@ func (x *Message) GetId() string {
 	return ""
 }
 
-func (x *Message) GetUserId() string {
+func (x *Message) GetChatId() string {
 	if x != nil {
-		return x.UserId
+		return x.ChatId
 	}
 	return ""
 }
 
-func (x *Message) GetChatId() string {
+func (x *Message) GetChatType() ChatType {
 	if x != nil {
-		return x.ChatId
+		return x.ChatType
+	}
+	return ChatType_CHAT_TYPE_PRIVATE
+}
+
+func (x *Message) GetSenderId() string {
+	if x != nil {
+		return x.SenderId
 	}
 	return ""
 }
@@ -364,8 +418,9 @@ type Ack struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	MessageId     string                 `protobuf:"bytes,1,opt,name=message_id,json=messageId,proto3" json:"message_id,omitempty"`
 	ChatId        string                 `protobuf:"bytes,2,opt,name=chat_id,json=chatId,proto3" json:"chat_id,omitempty"`
-	Success       bool                   `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
-	Error         string                 `protobuf:"bytes,4,opt,name=error,proto3" json:"error,omitempty"`
+	ReceivedAt    *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=received_at,json=receivedAt,proto3" json:"received_at,omitempty"`
+	Success       bool                   `protobuf:"varint,4,opt,name=success,proto3" json:"success,omitempty"`
+	Error         string                 `protobuf:"bytes,5,opt,name=error,proto3" json:"error,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -412,6 +467,13 @@ func (x *Ack) GetChatId() string {
 		return x.ChatId
 	}
 	return ""
+}
+
+func (x *Ack) GetReceivedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.ReceivedAt
+	}
+	return nil
 }
 
 func (x *Ack) GetSuccess() bool {
@@ -590,19 +652,22 @@ const file_gmp_proto_rawDesc = "" +
 	"\x03url\x18\a \x01(\tH\x00R\x03url\x12\x1b\n" +
 	"\tfile_name\x18\x05 \x01(\tR\bfileName\x12\x1b\n" +
 	"\tmime_type\x18\x06 \x01(\tR\bmimeTypeB\t\n" +
-	"\acontent\"\xb8\x01\n" +
+	"\acontent\"\xe8\x01\n" +
 	"\aMessage\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x17\n" +
-	"\auser_id\x18\x02 \x01(\tR\x06userId\x12\x17\n" +
-	"\achat_id\x18\x03 \x01(\tR\x06chatId\x128\n" +
-	"\ttimestamp\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x121\n" +
-	"\vattachments\x18\x05 \x03(\v2\x0f.gmp.AttachmentR\vattachments\"m\n" +
+	"\achat_id\x18\x02 \x01(\tR\x06chatId\x12*\n" +
+	"\tchat_type\x18\x03 \x01(\x0e2\r.gmp.ChatTypeR\bchatType\x12\x1b\n" +
+	"\tsender_id\x18\x04 \x01(\tR\bsenderId\x128\n" +
+	"\ttimestamp\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\ttimestamp\x121\n" +
+	"\vattachments\x18\x06 \x03(\v2\x0f.gmp.AttachmentR\vattachments\"\xaa\x01\n" +
 	"\x03Ack\x12\x1d\n" +
 	"\n" +
 	"message_id\x18\x01 \x01(\tR\tmessageId\x12\x17\n" +
-	"\achat_id\x18\x02 \x01(\tR\x06chatId\x12\x18\n" +
-	"\asuccess\x18\x03 \x01(\bR\asuccess\x12\x14\n" +
-	"\x05error\x18\x04 \x01(\tR\x05error\"C\n" +
+	"\achat_id\x18\x02 \x01(\tR\x06chatId\x12;\n" +
+	"\vreceived_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"receivedAt\x12\x18\n" +
+	"\asuccess\x18\x04 \x01(\bR\asuccess\x12\x14\n" +
+	"\x05error\x18\x05 \x01(\tR\x05error\"C\n" +
 	"\x0eClientToServer\x12(\n" +
 	"\amessage\x18\x01 \x01(\v2\f.gmp.MessageH\x00R\amessageB\a\n" +
 	"\x05event\"a\n" +
@@ -630,7 +695,10 @@ const file_gmp_proto_rawDesc = "" +
 	"\x06SYSTEM\x10\x00\x12\b\n" +
 	"\x04USER\x10\x01\x12\a\n" +
 	"\x03BOT\x10\x02\x12\v\n" +
-	"\aCHANNEL\x10\x032x\n" +
+	"\aCHANNEL\x10\x03*6\n" +
+	"\bChatType\x12\x15\n" +
+	"\x11CHAT_TYPE_PRIVATE\x10\x00\x12\x13\n" +
+	"\x0fCHAT_TYPE_GROUP\x10\x012x\n" +
 	"\x10MessengerService\x12=\n" +
 	"\rMessageStream\x12\x13.gmp.ClientToServer\x1a\x13.gmp.ServerToClient(\x010\x01\x12%\n" +
 	"\vSendMessage\x12\f.gmp.Message\x1a\b.gmp.AckB\x06Z\x04/gmpb\x06proto3"
@@ -647,34 +715,37 @@ func file_gmp_proto_rawDescGZIP() []byte {
 	return file_gmp_proto_rawDescData
 }
 
-var file_gmp_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_gmp_proto_enumTypes = make([]protoimpl.EnumInfo, 3)
 var file_gmp_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_gmp_proto_goTypes = []any{
 	(AttachmentType)(0),           // 0: gmp.AttachmentType
 	(MessageType)(0),              // 1: gmp.MessageType
-	(*Attachment)(nil),            // 2: gmp.Attachment
-	(*Message)(nil),               // 3: gmp.Message
-	(*Ack)(nil),                   // 4: gmp.Ack
-	(*ClientToServer)(nil),        // 5: gmp.ClientToServer
-	(*ServerToClient)(nil),        // 6: gmp.ServerToClient
-	(*timestamppb.Timestamp)(nil), // 7: google.protobuf.Timestamp
+	(ChatType)(0),                 // 2: gmp.ChatType
+	(*Attachment)(nil),            // 3: gmp.Attachment
+	(*Message)(nil),               // 4: gmp.Message
+	(*Ack)(nil),                   // 5: gmp.Ack
+	(*ClientToServer)(nil),        // 6: gmp.ClientToServer
+	(*ServerToClient)(nil),        // 7: gmp.ServerToClient
+	(*timestamppb.Timestamp)(nil), // 8: google.protobuf.Timestamp
 }
 var file_gmp_proto_depIdxs = []int32{
-	0, // 0: gmp.Attachment.type:type_name -> gmp.AttachmentType
-	7, // 1: gmp.Message.timestamp:type_name -> google.protobuf.Timestamp
-	2, // 2: gmp.Message.attachments:type_name -> gmp.Attachment
-	3, // 3: gmp.ClientToServer.message:type_name -> gmp.Message
-	4, // 4: gmp.ServerToClient.ack:type_name -> gmp.Ack
-	3, // 5: gmp.ServerToClient.message:type_name -> gmp.Message
-	5, // 6: gmp.MessengerService.MessageStream:input_type -> gmp.ClientToServer
-	3, // 7: gmp.MessengerService.SendMessage:input_type -> gmp.Message
-	6, // 8: gmp.MessengerService.MessageStream:output_type -> gmp.ServerToClient
-	4, // 9: gmp.MessengerService.SendMessage:output_type -> gmp.Ack
-	8, // [8:10] is the sub-list for method output_type
-	6, // [6:8] is the sub-list for method input_type
-	6, // [6:6] is the sub-list for extension type_name
-	6, // [6:6] is the sub-list for extension extendee
-	0, // [0:6] is the sub-list for field type_name
+	0,  // 0: gmp.Attachment.type:type_name -> gmp.AttachmentType
+	2,  // 1: gmp.Message.chat_type:type_name -> gmp.ChatType
+	8,  // 2: gmp.Message.timestamp:type_name -> google.protobuf.Timestamp
+	3,  // 3: gmp.Message.attachments:type_name -> gmp.Attachment
+	8,  // 4: gmp.Ack.received_at:type_name -> google.protobuf.Timestamp
+	4,  // 5: gmp.ClientToServer.message:type_name -> gmp.Message
+	5,  // 6: gmp.ServerToClient.ack:type_name -> gmp.Ack
+	4,  // 7: gmp.ServerToClient.message:type_name -> gmp.Message
+	6,  // 8: gmp.MessengerService.MessageStream:input_type -> gmp.ClientToServer
+	4,  // 9: gmp.MessengerService.SendMessage:input_type -> gmp.Message
+	7,  // 10: gmp.MessengerService.MessageStream:output_type -> gmp.ServerToClient
+	5,  // 11: gmp.MessengerService.SendMessage:output_type -> gmp.Ack
+	10, // [10:12] is the sub-list for method output_type
+	8,  // [8:10] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_gmp_proto_init() }
@@ -699,7 +770,7 @@ func file_gmp_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_gmp_proto_rawDesc), len(file_gmp_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      3,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
