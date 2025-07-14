@@ -20,7 +20,7 @@ func (s *Server) MessageStream(stream pb.MessengerService_MessageStreamServer) e
 			return err
 		}
 
-		if in.GetMessage() == nil {
+		if in.GetMesssage() == nil {
 			return errors.New("Empty message")
 		}
 
